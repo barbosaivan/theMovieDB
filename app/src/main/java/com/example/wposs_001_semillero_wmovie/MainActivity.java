@@ -24,20 +24,78 @@ import java.util.ArrayList;
 public class MainActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
     private ListMovieAdapter listMovieAdapter;
+    private boolean load;
+    private int nextPage;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        init();
+    }
 
+    public void init() {
         recyclerView = (RecyclerView) findViewById(R.id.listReciclerView);
         listMovieAdapter = new ListMovieAdapter(this);
         recyclerView.setAdapter(listMovieAdapter);
         recyclerView.setHasFixedSize(true);
         GridLayoutManager layoutManager = new GridLayoutManager(this, 1);
         recyclerView.setLayoutManager(layoutManager);
+        recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
 
-        getRetrofitResPopular();
+                if (dy > 0) {
+
+                    int visibleItemCount = layoutManager.getChildCount();
+                    int totalItemCount = layoutManager.getItemCount();
+                    int pastVisibleItems = layoutManager.findFirstVisibleItemPosition();
+
+                    if (load) {
+                        if ((visibleItemCount + pastVisibleItems) >= totalItemCount) {
+                            Log.i("Tagt", "llegamos al final");
+
+                            load = false;
+                            nextPage += 1;
+                            getRetrofitResPopular(nextPage);
+                        }
+                    }
+                }
+            }
+        });
+        nextPage = 1;
+        getRetrofitResPopular(nextPage);
+    }
+
+    private void getRetrofitResPopular(int nextPage) {
+        WMovieInterface wMovieInterface = Service.getwMovie();
+        Call<ResWMovie> resWMovieCall = wMovieInterface.getPopularMovies(
+                Credentials.key_api, nextPage
+        );
+
+        resWMovieCall.enqueue(new Callback<ResWMovie>() {
+            @Override
+            public void onResponse(Call<ResWMovie> call, Response<ResWMovie> response) {
+                load = true;
+                if (response.code() == 200) {
+                    ArrayList<WMovie> movies = new ArrayList<>(response.body().getMovie());
+                    listMovieAdapter.adicionarListaPokemon(movies);
+                } else {
+                    try {
+                        Log.v("Tag", "Error" + response.errorBody().string());
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ResWMovie> call, Throwable t) {
+                load = true;
+                t.printStackTrace();
+            }
+        });
     }
 
     //Se cometan metodos usados para consulta por nombre y id dados por la API
@@ -98,33 +156,4 @@ public class MainActivity extends AppCompatActivity {
         });
     }
      */
-
-    private void getRetrofitResPopular() {
-        WMovieInterface wMovieInterface = Service.getwMovie();
-        Call<ResWMovie> resWMovieCall = wMovieInterface.getPopularMovies(
-                Credentials.key_api, 1
-        );
-
-        resWMovieCall.enqueue(new Callback<ResWMovie>() {
-            @Override
-            public void onResponse(Call<ResWMovie> call, Response<ResWMovie> response) {
-                if (response.code() == 200) {
-                    Log.v("Tag", "el response" + response.body().toString());
-                    ArrayList<WMovie> movies = new ArrayList<>(response.body().getMovie());
-                    listMovieAdapter.adicionarListaPokemon(movies);
-                } else {
-                    try {
-                        Log.v("Tag", "Error" + response.errorBody().string());
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                }
-            }
-
-            @Override
-            public void onFailure(Call<ResWMovie> call, Throwable t) {
-                t.printStackTrace();
-            }
-        });
-    }
 }
