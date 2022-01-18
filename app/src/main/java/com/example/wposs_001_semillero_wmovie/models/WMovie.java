@@ -5,26 +5,26 @@ import android.os.Parcelable;
 
 public class WMovie implements Parcelable {
     private String title;
-    private String psoter_path;
+    private String poster_path;
     private String release_date;
-    private int movie_id;
+    private int id;
     private float vote_average;
     private  String movie_overview;
 
     public WMovie(String title, String psoter_path, String release_date, int movie_id, float vote_average, String movie_overview) {
         this.title = title;
-        this.psoter_path = psoter_path;
+        this.poster_path = psoter_path;
         this.release_date = release_date;
-        this.movie_id = movie_id;
+        this.id = movie_id;
         this.vote_average = vote_average;
         this.movie_overview = movie_overview;
     }
 
     protected WMovie(Parcel in) {
         title = in.readString();
-        psoter_path = in.readString();
+        poster_path = in.readString();
         release_date = in.readString();
-        movie_id = in.readInt();
+        id = in.readInt();
         vote_average = in.readFloat();
         movie_overview = in.readString();
     }
@@ -49,12 +49,12 @@ public class WMovie implements Parcelable {
         this.title = title;
     }
 
-    public String getPsoter_path() {
-        return psoter_path;
+    public String getPoster_path() {
+        return poster_path;
     }
 
-    public void setPsoter_path(String psoter_path) {
-        this.psoter_path = psoter_path;
+    public void setPoster_path(String poster_path) {
+        this.poster_path = poster_path;
     }
 
     public String getRelease_date() {
@@ -65,12 +65,12 @@ public class WMovie implements Parcelable {
         this.release_date = release_date;
     }
 
-    public int getMovie_id() {
-        return movie_id;
+    public int getId() {
+        return id;
     }
 
-    public void setMovie_id(int movie_id) {
-        this.movie_id = movie_id;
+    public void setId(int id) {
+        this.id = id;
     }
 
     public float getVote_average() {
@@ -97,9 +97,9 @@ public class WMovie implements Parcelable {
     @Override
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeString(title);
-        dest.writeString(psoter_path);
+        dest.writeString(poster_path);
         dest.writeString(release_date);
-        dest.writeInt(movie_id);
+        dest.writeInt(id);
         dest.writeFloat(vote_average);
         dest.writeString(movie_overview);
     }
