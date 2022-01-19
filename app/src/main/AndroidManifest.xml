@@ -12,7 +12,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.WPOSS_001_SEMILLERO_WMOVIE">
         <activity
-            android:name=".SplashActivity"
+            android:name=".presenter.SplashActivity"
             android:exported="true"
             android:theme="@style/SplashScream">
             <intent-filter>
@@ -22,7 +22,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".MainActivity"
+            android:name=".view.MainActivity"
             android:exported="false">
         </activity>
     </application>

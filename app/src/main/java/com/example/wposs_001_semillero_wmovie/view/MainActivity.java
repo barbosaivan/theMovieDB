@@ -1,4 +1,4 @@
-package com.example.wposs_001_semillero_wmovie;
+package com.example.wposs_001_semillero_wmovie.view;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
@@ -6,33 +6,34 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
 
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
-
-import android.util.Log;
-
-import com.example.wposs_001_semillero_wmovie.interfaces.WMovieInterface;
-import com.example.wposs_001_semillero_wmovie.models.Credentials;
-import com.example.wposs_001_semillero_wmovie.models.ResWMovie;
-import com.example.wposs_001_semillero_wmovie.models.Service;
+import com.example.wposs_001_semillero_wmovie.R;
+import com.example.wposs_001_semillero_wmovie.interfaces.InterfaceMainActivity;
 import com.example.wposs_001_semillero_wmovie.models.WMovie;
+import com.example.wposs_001_semillero_wmovie.presenter.PresenterMainActivity;
+import com.example.wposs_001_semillero_wmovie.view.adapters.ListMovieAdapter;
 
-import java.io.IOException;
 import java.util.ArrayList;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements InterfaceMainActivity.ViewActivity {
     private RecyclerView recyclerView;
     private ListMovieAdapter listMovieAdapter;
     private boolean load;
-    private int nextPage;
+    private int loadPage;
+    ArrayList<WMovie> movies;
+    InterfaceMainActivity.presenterActivity presenterActivity;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        presenterActivity = new PresenterMainActivity(this);
+
+        movies = new ArrayList<>();
+        loadPage = 1;
+        presenterActivity.bringRetrofitResPopular(loadPage);
         init();
     }
+
 
     public void init() {
         recyclerView = (RecyclerView) findViewById(R.id.listReciclerView);
@@ -54,51 +55,29 @@ public class MainActivity extends AppCompatActivity {
 
                     if (load) {
                         if ((visibleItemCount + pastVisibleItems) >= totalItemCount) {
-                            Log.i("Tagt", "llegamos al final");
 
                             load = false;
-                            nextPage += 1;
-                            getRetrofitResPopular(nextPage);
+                            loadPage += 1;
+                            presenterActivity.bringRetrofitResPopular(loadPage);
                         }
                     }
                 }
             }
         });
-        nextPage = 1;
-        getRetrofitResPopular(nextPage);
     }
 
-    private void getRetrofitResPopular(int nextPage) {
-        WMovieInterface wMovieInterface = Service.getwMovie();
-        Call<ResWMovie> resWMovieCall = wMovieInterface.getPopularMovies(
-                Credentials.key_api, nextPage
-        );
-
-        resWMovieCall.enqueue(new Callback<ResWMovie>() {
-            @Override
-            public void onResponse(Call<ResWMovie> call, Response<ResWMovie> response) {
-                load = true;
-                if (response.code() == 200) {
-                    ArrayList<WMovie> movies = new ArrayList<>(response.body().getMovie());
-                    listMovieAdapter.adicionarListaPokemon(movies);
-                } else {
-                    try {
-                        Log.v("Tag", "Error" + response.errorBody().string());
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                }
-            }
-
-            @Override
-            public void onFailure(Call<ResWMovie> call, Throwable t) {
-                load = true;
-                t.printStackTrace();
-            }
-        });
+    @Override
+    public void valorList(ArrayList<WMovie> movies) {
+        this.movies = movies;
+        listMovieAdapter.adicionarListaPokemon(movies);
     }
 
-    //Se cometan metodos usados para consulta por nombre y id dados por la API
+    @Override
+    public void valorLoad(boolean load) {
+        this.load = load;
+    }
+    
+    //Se cometan metodos usados para consulta por nombre por la API
     /*
     private void getRetrofitRes() {
         WMovieInterface wMovieInterface = Service.getwMovie();
@@ -127,31 +106,6 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onFailure(Call<SearchResWMovie> call, Throwable t) {
                 t.printStackTrace();
-            }
-        });
-    }
-
-    private void getRetrofitResID() {
-        WMovieInterface wMovieInterface = Service.getwMovie();
-        Call<WMovie> responseCall = wMovieInterface.getMovie(9593, Credentials.key_api);
-
-        responseCall.enqueue(new Callback<WMovie>() {
-            @Override
-            public void onResponse(Call<WMovie> call, Response<WMovie> response) {
-
-                if (response.code() == 200) {
-                    WMovie wMovie = response.body();
-                    Log.v("Tag", "The Response " + wMovie.getTitle());
-                } else {
-                    try {
-                        Log.v("Tag", "Error" + response.errorBody().string());
-                    } catch (IOException ioException) {
-                        ioException.printStackTrace();
-                    }
-                }
-            }
-            @Override
-            public void onFailure(Call<WMovie> call, Throwable t) {
             }
         });
     }

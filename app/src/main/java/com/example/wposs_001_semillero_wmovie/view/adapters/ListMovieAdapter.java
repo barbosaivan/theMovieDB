@@ -1,4 +1,4 @@
-package com.example.wposs_001_semillero_wmovie;
+package com.example.wposs_001_semillero_wmovie.view.adapters;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.example.wposs_001_semillero_wmovie.R;
 import com.example.wposs_001_semillero_wmovie.models.WMovie;
 
 import java.util.ArrayList;
