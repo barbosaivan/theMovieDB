@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import com.example.wposs_001_semillero_wmovie.R;
@@ -37,7 +38,12 @@ public class MainActivity extends AppCompatActivity implements InterfaceMainActi
 
     public void init() {
         recyclerView = (RecyclerView) findViewById(R.id.listReciclerView);
-        listMovieAdapter = new ListMovieAdapter(this);
+        listMovieAdapter = new ListMovieAdapter(this, new ListMovieAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(WMovie item) {
+                moveTodescription(item);
+            }
+        });
         recyclerView.setAdapter(listMovieAdapter);
         recyclerView.setHasFixedSize(true);
         GridLayoutManager layoutManager = new GridLayoutManager(this, 1);
@@ -64,6 +70,12 @@ public class MainActivity extends AppCompatActivity implements InterfaceMainActi
                 }
             }
         });
+    }
+
+    private void moveTodescription(WMovie item) {
+        Intent intent = new Intent(this, DescriptionMovie.class);
+        intent.putExtra("listMovie", item);
+        startActivity(intent);
     }
 
     @Override

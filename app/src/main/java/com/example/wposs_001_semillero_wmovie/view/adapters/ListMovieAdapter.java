@@ -19,10 +19,16 @@ import java.util.ArrayList;
 public class ListMovieAdapter extends RecyclerView.Adapter<ListMovieAdapter.ViewHolder>{
     private ArrayList<WMovie> dataset;
     private Context context;
+    final ListMovieAdapter.OnItemClickListener listener;
 
-    public ListMovieAdapter(Context context){
+    public interface OnItemClickListener{
+        void onItemClick(WMovie item);
+    }
+
+    public ListMovieAdapter(Context context, ListMovieAdapter.OnItemClickListener listener){
         this.context = context;
         dataset = new ArrayList<>();
+        this.listener = listener;
     }
 
     @Override
@@ -37,8 +43,12 @@ public class ListMovieAdapter extends RecyclerView.Adapter<ListMovieAdapter.View
         holder.textViewAverage.setText(String.valueOf(m.getVote_average()));
         holder.textViewTitle.setText(m.getTitle());
         holder.textViewReleaseDate.setText(m.getRelease_date());
-
-
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                listener.onItemClick(m);
+            }
+        });
         Glide.with(context).
                 load("https://image.tmdb.org/t/p/w500/"+m.getPoster_path())
                 .centerCrop().crossFade().diskCacheStrategy(DiskCacheStrategy.ALL).into(holder.imageViewMovie);

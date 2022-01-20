@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">Wmovie</string>
+    <string name="see_more">see more</string>
+    <string name="see_less">see lee</string>
 </resources>

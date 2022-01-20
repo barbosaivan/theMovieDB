@@ -12,6 +12,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.WPOSS_001_SEMILLERO_WMOVIE">
         <activity
+            android:name=".view.DescriptionMovie"
+            android:exported="false" />
+        <activity
             android:name=".presenter.SplashActivity"
             android:exported="true"
             android:theme="@style/SplashScream">
@@ -23,8 +26,7 @@
         </activity>
         <activity
             android:name=".view.MainActivity"
-            android:exported="false">
-        </activity>
+            android:exported="false"/>
     </application>
 
 </manifest>

@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+
+<RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".view.DescriptionMovie"
+    android:background="@color/Violeta">
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardviewDescription"
+        android:layout_width="match_parent"
+        android:layout_height="465dp">
+
+        <ImageView
+            android:id="@+id/imageViewMovieDescription"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/Violeta">
+        </ImageView>
+
+        <Button
+            android:id="@+id/buttonBack"
+            android:layout_width="123dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:background="@color/tranparent"
+            android:text="Back"
+            android:textColor="@color/white"
+            android:textSize="20sp"
+            android:drawableLeft="@drawable/ic_back"/>
+
+        <TextView
+            android:id="@+id/textViewTitleDescription"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="330dp"
+            android:layout_marginHorizontal="20dp"
+            android:text="Title Movie"
+            android:textColor="@color/white"
+            android:textSize="30sp"/>
+
+    </androidx.cardview.widget.CardView>
+
+    <TextView
+        android:id="@+id/textViewSynopsis"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/cardviewDescription"
+        android:layout_marginHorizontal="20dp"
+        android:layout_marginTop="18dp"
+        android:fontFamily="sans-serif-light"
+        android:text="Synopsis"
+        android:textColor="@color/white"
+        android:textSize="30sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/textviewSeeMore"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/cardviewDescription"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="120dp"
+        android:layout_marginTop="35dp"
+        android:layout_marginEnd="18dp"
+        android:layout_toEndOf="@+id/textViewSynopsis"
+        android:background="@color/tranparent"
+        android:text="@string/see_more"
+        android:textAlignment="textEnd"
+        android:textAllCaps="false"
+        android:textColor="@color/oscure_text"
+        android:textSize="12sp" />
+
+    <TextView
+        android:id="@+id/textViewOverviewDescription"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/textViewSynopsis"
+        android:layout_marginHorizontal="18sp"
+        android:layout_marginTop="8dp"
+        android:text="Override"
+        android:maxLines="4"
+        android:textColor="@color/white"
+        android:textSize="14sp" />
+
+    <TextView
+        android:id="@+id/textViewCast"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/textViewOverviewDescription"
+        android:layout_marginHorizontal="18dp"
+        android:layout_marginTop="18dp"
+        android:text="Cast"
+        android:textColor="@color/white"
+        android:textSize="30sp"
+        android:textStyle="bold"/>
+
+    <ImageView
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_below="@+id/textViewCast"
+        android:layout_marginTop="18dp"
+        android:layout_marginStart="18dp"/>
+
+</RelativeLayout>
+
+</ScrollView>
