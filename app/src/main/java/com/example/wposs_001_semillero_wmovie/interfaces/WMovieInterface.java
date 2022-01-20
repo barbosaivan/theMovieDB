@@ -27,7 +27,8 @@ public interface WMovieInterface {
     @GET("/3/movie/popular?")
     Call<ResWMovie> getPopularMovies(
             @Query("api_key") String api_key,
-            @Query("page") int page
+            @Query("page") int page,
+            @Query("language") String language
     );
 
     @GET("/3/movie/popular?")

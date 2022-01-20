@@ -24,7 +24,7 @@ public class ModelMainActivity implements InterfaceMainActivity.modelActivity {
     public void RetrofitResPopular(int nextPage) {
         WMovieInterface wMovieInterface = Service.getwMovie();
         Call<ResWMovie> resWMovieCall = wMovieInterface.getPopularMovies(
-                Credentials.key_api, nextPage
+                Credentials.key_api, nextPage, "es-MX"
         );
 
         resWMovieCall.enqueue(new Callback<ResWMovie>() {

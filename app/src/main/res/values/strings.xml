@@ -1,5 +1,8 @@
 <resources>
     <string name="app_name">Wmovie</string>
-    <string name="see_more">see more</string>
-    <string name="see_less">see lee</string>
+    <string name="see_more">leer mas</string>
+    <string name="see_less">leer menos</string>
+    <string name="Button_back">Volver</string>
+    <string name="cast">Elenco</string>
+    <string name="Synopsis">Sinopsis</string>
 </resources>

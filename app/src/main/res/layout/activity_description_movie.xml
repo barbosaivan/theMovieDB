@@ -14,7 +14,7 @@
     <androidx.cardview.widget.CardView
         android:id="@+id/cardviewDescription"
         android:layout_width="match_parent"
-        android:layout_height="465dp">
+        android:layout_height="520dp">
 
         <ImageView
             android:id="@+id/imageViewMovieDescription"
@@ -25,14 +25,14 @@
 
         <Button
             android:id="@+id/buttonBack"
-            android:layout_width="123dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="30dp"
             android:background="@color/tranparent"
-            android:text="Back"
+            android:drawableLeft="@drawable/ic_back"
+            android:text="@string/Button_back"
             android:textColor="@color/white"
-            android:textSize="20sp"
-            android:drawableLeft="@drawable/ic_back"/>
+            android:textSize="20sp" />
 
         <TextView
             android:id="@+id/textViewTitleDescription"
@@ -41,6 +41,7 @@
             android:layout_marginTop="330dp"
             android:layout_marginHorizontal="20dp"
             android:text="Title Movie"
+            android:fontFamily="sans-serif-black"
             android:textColor="@color/white"
             android:textSize="30sp"/>
 
@@ -54,7 +55,7 @@
         android:layout_marginHorizontal="20dp"
         android:layout_marginTop="18dp"
         android:fontFamily="sans-serif-light"
-        android:text="Synopsis"
+        android:text="@string/Synopsis"
         android:textColor="@color/white"
         android:textSize="30sp"
         android:textStyle="bold" />
@@ -74,7 +75,7 @@
         android:textAlignment="textEnd"
         android:textAllCaps="false"
         android:textColor="@color/oscure_text"
-        android:textSize="12sp" />
+        android:textSize="15sp" />
 
     <TextView
         android:id="@+id/textViewOverviewDescription"
@@ -83,8 +84,8 @@
         android:layout_below="@id/textViewSynopsis"
         android:layout_marginHorizontal="18sp"
         android:layout_marginTop="8dp"
-        android:text="Override"
         android:maxLines="4"
+        android:text="Override"
         android:textColor="@color/white"
         android:textSize="14sp" />
 
@@ -95,10 +96,10 @@
         android:layout_below="@id/textViewOverviewDescription"
         android:layout_marginHorizontal="18dp"
         android:layout_marginTop="18dp"
-        android:text="Cast"
+        android:text="@string/cast"
         android:textColor="@color/white"
         android:textSize="30sp"
-        android:textStyle="bold"/>
+        android:textStyle="bold" />
 
     <ImageView
         android:layout_width="100dp"
