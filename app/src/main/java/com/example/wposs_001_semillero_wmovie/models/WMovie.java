@@ -5,18 +5,20 @@ import java.io.Serializable;
 public class WMovie implements Serializable {
     private String title;
     private String poster_path;
+    private String backdrop_path;
     private String release_date;
     private int id;
     private float vote_average;
     private  String overview;
 
-    public WMovie(String title, String psoter_path, String release_date, int movie_id, float vote_average, String movie_overview) {
+    public WMovie(String title, String psoter_path,String backdrop_path, String release_date, int movie_id, float vote_average, String movie_overview) {
         this.title = title;
         this.poster_path = psoter_path;
         this.release_date = release_date;
         this.id = movie_id;
         this.vote_average = vote_average;
         this.overview = movie_overview;
+        this.backdrop_path = backdrop_path;
     }
 
 
@@ -68,4 +70,11 @@ public class WMovie implements Serializable {
         this.overview = overview;
     }
 
+    public String getBackdrop_path() {
+        return backdrop_path;
+    }
+
+    public void setBackdrop_path(String backdrop_path) {
+        this.backdrop_path = backdrop_path;
+    }
 }

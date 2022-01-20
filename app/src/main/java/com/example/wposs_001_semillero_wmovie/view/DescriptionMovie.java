@@ -18,7 +18,7 @@ import java.util.Objects;
 public class DescriptionMovie extends AppCompatActivity {
 
     TextView titleDescription, overviewDescription, textViewSeeMore;
-    ImageView posterMovieDescription;
+    ImageView posterMovieDescription, imageViewCast;
     Button buttonBack;
     private boolean hideOverride;
 
@@ -28,20 +28,26 @@ public class DescriptionMovie extends AppCompatActivity {
         setContentView(R.layout.activity_description_movie);
         Objects.requireNonNull(getSupportActionBar()).hide();
 
-        WMovie movies = (WMovie) getIntent().getSerializableExtra("listMovie");
         titleDescription = findViewById(R.id.textViewTitleDescription);
         overviewDescription = findViewById(R.id.textViewOverviewDescription);
         posterMovieDescription = findViewById(R.id.imageViewMovieDescription);
         buttonBack = (Button) findViewById(R.id.buttonBack);
         textViewSeeMore = (TextView) findViewById(R.id.textviewSeeMore);
+        imageViewCast = (ImageView) findViewById(R.id.imageViewCast);
         hideOverride = false;
 
+        WMovie movies = (WMovie) getIntent().getSerializableExtra("listMovie");
         titleDescription.setText(movies.getTitle());
         overviewDescription.setText(String.valueOf(movies.getOverview()));
         Glide.with(this).
                 load("https://image.tmdb.org/t/p/w500/" + movies.getPoster_path())
                 .centerCrop().crossFade().diskCacheStrategy(DiskCacheStrategy.ALL)
                 .into(posterMovieDescription);
+
+        Glide.with(this).
+                load("https://image.tmdb.org/t/p/w500/" + movies.getBackdrop_path())
+                .centerCrop().crossFade().diskCacheStrategy(DiskCacheStrategy.ALL)
+                .into(imageViewCast);
 
         buttonBack.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
