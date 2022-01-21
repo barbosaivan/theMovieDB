@@ -19,7 +19,6 @@ public class ModelMainActivity implements InterfaceMainActivity.modelActivity {
         this.presenterActivity = presenterActivity;
     }
 
-
     @Override
     public void RetrofitResPopular(int nextPage) {
         WMovieInterface wMovieInterface = Service.getwMovie();
@@ -33,7 +32,7 @@ public class ModelMainActivity implements InterfaceMainActivity.modelActivity {
                 presenterActivity.reloadLoadPage(true);
                 if (response.code() == 200) {
                     ArrayList<WMovie> movies = new ArrayList<>(response.body().getMovie());
-                    presenterActivity.sendRetrofitResPopular(movies);
+                    retrofitResGenres(movies);
                 } else {
                     try {
                         Log.v("Tag", "Error" + response.errorBody().string());
@@ -51,4 +50,41 @@ public class ModelMainActivity implements InterfaceMainActivity.modelActivity {
         });
     }
 
+    public void retrofitResGenres(ArrayList<WMovie> movies) {
+        WMovieInterface wMovieInterface = Service.getwMovie();
+        Call<ResWMovie> resWMovieCall = wMovieInterface.geGenres(
+                Credentials.key_api, "es-MX"
+        );
+
+        resWMovieCall.enqueue(new Callback<ResWMovie>() {
+            @Override
+            public void onResponse(Call<ResWMovie> call, Response<ResWMovie> response) {
+                presenterActivity.reloadLoadPage(true);
+                if (response.code() == 200) {
+                    ArrayList<GenresMovies> genresMovies = new ArrayList<>(response.body().getGenres());
+                    for (WMovie movie : movies) {
+                        for (int i = 0; i < movie.getGenre_ids().length; i++) {
+                            for (GenresMovies generos : genresMovies) {
+                                if (movie.getGenre_ids()[i].equals(generos.getId())) {
+                                    movie.getGenre_ids()[i] = generos.getName();
+                                }
+                            }
+                        }
+                    }
+                    presenterActivity.sendRetrofitResPopular(movies);
+                } else {
+                    try {
+                        Log.v("Tag", "Error" + response.errorBody().string());
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ResWMovie> call, Throwable t) {
+                t.printStackTrace();
+            }
+        });
+    }
 }

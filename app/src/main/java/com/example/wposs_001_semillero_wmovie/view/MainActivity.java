@@ -35,7 +35,6 @@ public class MainActivity extends AppCompatActivity implements InterfaceMainActi
         init();
     }
 
-
     public void init() {
         recyclerView = (RecyclerView) findViewById(R.id.listReciclerView);
         listMovieAdapter = new ListMovieAdapter(this, new ListMovieAdapter.OnItemClickListener() {
@@ -88,7 +87,7 @@ public class MainActivity extends AppCompatActivity implements InterfaceMainActi
     public void valorLoad(boolean load) {
         this.load = load;
     }
-    
+
     //Se cometan metodos usados para consulta por nombre por la API
     /*
     private void getRetrofitRes() {

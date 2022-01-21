@@ -5,111 +5,125 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content">
 
-<RelativeLayout
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".view.DescriptionMovie"
-    android:background="@color/Violeta">
-
-    <androidx.cardview.widget.CardView
-        android:id="@+id/cardviewDescription"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="520dp">
+        android:layout_height="match_parent"
+        android:background="@color/Violeta"
+        tools:context=".view.DescriptionMovie">
 
-        <ImageView
-            android:id="@+id/imageViewMovieDescription"
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cardviewDescription"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@color/Violeta">
-        </ImageView>
+            android:layout_height="520dp">
 
-        <Button
-            android:id="@+id/buttonBack"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="30dp"
-            android:background="@color/tranparent"
-            android:drawableLeft="@drawable/ic_back"
-            android:text="@string/Button_back"
-            android:textColor="@color/white"
-            android:textSize="20sp" />
+            <ImageView
+                android:id="@+id/imageViewMovieDescription"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/Violeta" />
+
+            <Button
+                android:id="@+id/buttonBack"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
+                android:background="@color/tranparent"
+                android:drawableLeft="@drawable/ic_back"
+                android:text="@string/Button_back"
+                android:textColor="@color/white"
+                android:textSize="20sp" />
+
+            <TextView
+                android:id="@+id/textViewTitleDescription"
+                android:layout_width="match_parent"
+                android:layout_height="80dp"
+                android:layout_marginHorizontal="20dp"
+                android:layout_marginTop="330dp"
+                android:fontFamily="sans-serif-black"
+                android:gravity="bottom"
+                android:text="Title Movie"
+                android:textColor="@color/white"
+                android:textSize="30sp" />
+
+            <TextView
+                android:id="@+id/textViewGenresDescription"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="440dp"
+                android:background="@drawable/margin_card_genres"
+                android:fontFamily="sans-serif"
+                android:gravity="center"
+                android:padding="5dp"
+                android:text="Genre Movie"
+                android:textColor="@color/white"
+                android:textSize="20dp" />
+
+        </androidx.cardview.widget.CardView>
 
         <TextView
-            android:id="@+id/textViewTitleDescription"
-            android:layout_width="match_parent"
+            android:id="@+id/textViewSynopsis"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="330dp"
+            android:layout_below="@+id/cardviewDescription"
             android:layout_marginHorizontal="20dp"
-            android:text="Title Movie"
-            android:fontFamily="sans-serif-black"
+            android:layout_marginTop="18dp"
+            android:fontFamily="sans-serif-light"
+            android:text="@string/Synopsis"
             android:textColor="@color/white"
-            android:textSize="30sp"/>
+            android:textSize="30sp"
+            android:textStyle="bold" />
 
-    </androidx.cardview.widget.CardView>
+        <TextView
+            android:id="@+id/textviewSeeMore"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/cardviewDescription"
+            android:layout_alignParentEnd="true"
+            android:layout_marginStart="120dp"
+            android:layout_marginTop="35dp"
+            android:layout_marginEnd="18dp"
+            android:layout_toEndOf="@+id/textViewSynopsis"
+            android:background="@color/tranparent"
+            android:text="@string/see_more"
+            android:textAlignment="textEnd"
+            android:textAllCaps="false"
+            android:textColor="@color/oscure_text"
+            android:textSize="15sp" />
 
-    <TextView
-        android:id="@+id/textViewSynopsis"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/cardviewDescription"
-        android:layout_marginHorizontal="20dp"
-        android:layout_marginTop="18dp"
-        android:fontFamily="sans-serif-light"
-        android:text="@string/Synopsis"
-        android:textColor="@color/white"
-        android:textSize="30sp"
-        android:textStyle="bold" />
+        <TextView
+            android:id="@+id/textViewOverviewDescription"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/textViewSynopsis"
+            android:layout_marginHorizontal="18sp"
+            android:layout_marginTop="8dp"
+            android:maxLines="4"
+            android:text="Override"
+            android:textColor="@color/white"
+            android:textSize="14sp" />
 
-    <TextView
-        android:id="@+id/textviewSeeMore"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/cardviewDescription"
-        android:layout_alignParentEnd="true"
-        android:layout_marginStart="120dp"
-        android:layout_marginTop="35dp"
-        android:layout_marginEnd="18dp"
-        android:layout_toEndOf="@+id/textViewSynopsis"
-        android:background="@color/tranparent"
-        android:text="@string/see_more"
-        android:textAlignment="textEnd"
-        android:textAllCaps="false"
-        android:textColor="@color/oscure_text"
-        android:textSize="15sp" />
+        <TextView
+            android:id="@+id/textViewCast"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/textViewOverviewDescription"
+            android:layout_marginHorizontal="18dp"
+            android:layout_marginTop="18dp"
+            android:text="@string/cast"
+            android:textColor="@color/white"
+            android:textSize="30sp"
+            android:textStyle="bold" />
 
-    <TextView
-        android:id="@+id/textViewOverviewDescription"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/textViewSynopsis"
-        android:layout_marginHorizontal="18sp"
-        android:layout_marginTop="8dp"
-        android:maxLines="4"
-        android:text="Override"
-        android:textColor="@color/white"
-        android:textSize="14sp" />
+        <ImageView
+            android:id="@+id/imageViewCast"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_below="@+id/textViewCast"
+            android:layout_marginStart="18dp"
+            android:layout_marginTop="18dp"
+            android:layout_marginBottom="20dp" />
 
-    <TextView
-        android:id="@+id/textViewCast"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/textViewOverviewDescription"
-        android:layout_marginHorizontal="18dp"
-        android:layout_marginTop="18dp"
-        android:text="@string/cast"
-        android:textColor="@color/white"
-        android:textSize="30sp"
-        android:textStyle="bold" />
-
-    <ImageView
-        android:id="@+id/imageViewCast"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:layout_below="@+id/textViewCast"
-        android:layout_marginTop="18dp"
-        android:layout_marginStart="18dp"
-        android:layout_marginBottom="20dp"/>
-
-</RelativeLayout>
+    </RelativeLayout>
 
 </ScrollView>

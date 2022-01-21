@@ -16,16 +16,16 @@ import com.example.wposs_001_semillero_wmovie.models.WMovie;
 
 import java.util.ArrayList;
 
-public class ListMovieAdapter extends RecyclerView.Adapter<ListMovieAdapter.ViewHolder>{
+public class ListMovieAdapter extends RecyclerView.Adapter<ListMovieAdapter.ViewHolder> {
     private ArrayList<WMovie> dataset;
     private Context context;
     final ListMovieAdapter.OnItemClickListener listener;
 
-    public interface OnItemClickListener{
+    public interface OnItemClickListener {
         void onItemClick(WMovie item);
     }
 
-    public ListMovieAdapter(Context context, ListMovieAdapter.OnItemClickListener listener){
+    public ListMovieAdapter(Context context, ListMovieAdapter.OnItemClickListener listener) {
         this.context = context;
         dataset = new ArrayList<>();
         this.listener = listener;
@@ -34,7 +34,7 @@ public class ListMovieAdapter extends RecyclerView.Adapter<ListMovieAdapter.View
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_movie, parent, false);
-        return  new ViewHolder(view);
+        return new ViewHolder(view);
     }
 
     @Override
@@ -43,6 +43,7 @@ public class ListMovieAdapter extends RecyclerView.Adapter<ListMovieAdapter.View
         holder.textViewAverage.setText(String.valueOf(m.getVote_average()));
         holder.textViewTitle.setText(m.getTitle());
         holder.textViewReleaseDate.setText(m.getRelease_date());
+        holder.textViewGenres.setText(m.getGenre_ids()[0]);
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -50,7 +51,7 @@ public class ListMovieAdapter extends RecyclerView.Adapter<ListMovieAdapter.View
             }
         });
         Glide.with(context).
-                load("https://image.tmdb.org/t/p/w500/"+m.getPoster_path())
+                load("https://image.tmdb.org/t/p/w500/" + m.getPoster_path())
                 .centerCrop().crossFade().diskCacheStrategy(DiskCacheStrategy.ALL).into(holder.imageViewMovie);
     }
 
@@ -59,16 +60,15 @@ public class ListMovieAdapter extends RecyclerView.Adapter<ListMovieAdapter.View
         return dataset.size();
     }
 
-    public void adicionarListaPokemon(ArrayList<WMovie> listaPokemon) {
-        dataset.addAll(listaPokemon);
+    public void adicionarListaPokemon(ArrayList<WMovie> listMovies) {
+        dataset.addAll(listMovies);
         notifyDataSetChanged();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         private ImageView imageViewMovie;
-        private TextView textViewAverage;
-        private TextView textViewTitle;
-        private TextView textViewReleaseDate;
+        private TextView textViewAverage, textViewTitle, textViewReleaseDate, textViewGenres;
+
         public ViewHolder(View itemView) {
             super(itemView);
 
@@ -76,6 +76,7 @@ public class ListMovieAdapter extends RecyclerView.Adapter<ListMovieAdapter.View
             textViewAverage = (TextView) itemView.findViewById(R.id.textViewAverage);
             textViewTitle = (TextView) itemView.findViewById(R.id.textViewTitle);
             textViewReleaseDate = (TextView) itemView.findViewById(R.id.textViewReleaseDate);
+            textViewGenres = (TextView) itemView.findViewById(R.id.textViewGenres);
         }
     }
 }

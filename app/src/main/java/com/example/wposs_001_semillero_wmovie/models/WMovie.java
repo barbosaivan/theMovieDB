@@ -9,9 +9,10 @@ public class WMovie implements Serializable {
     private String release_date;
     private int id;
     private float vote_average;
-    private  String overview;
+    private String overview;
+    private String[] genre_ids;
 
-    public WMovie(String title, String psoter_path,String backdrop_path, String release_date, int movie_id, float vote_average, String movie_overview) {
+    public WMovie(String title, String psoter_path, String backdrop_path, String release_date, int movie_id, float vote_average, String movie_overview, String[] genre_ids) {
         this.title = title;
         this.poster_path = psoter_path;
         this.release_date = release_date;
@@ -19,8 +20,8 @@ public class WMovie implements Serializable {
         this.vote_average = vote_average;
         this.overview = movie_overview;
         this.backdrop_path = backdrop_path;
+        this.genre_ids = genre_ids;
     }
-
 
     public String getTitle() {
         return title;
@@ -76,5 +77,13 @@ public class WMovie implements Serializable {
 
     public void setBackdrop_path(String backdrop_path) {
         this.backdrop_path = backdrop_path;
+    }
+
+    public String[] getGenre_ids() {
+        return genre_ids;
+    }
+
+    public void setGenre_ids(String[] genre_ids) {
+        this.genre_ids = genre_ids;
     }
 }

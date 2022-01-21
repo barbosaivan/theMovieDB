@@ -18,12 +18,6 @@ public interface WMovieInterface {
             @Query("page") String page
     );
 
-    @GET("3/movie/{movie_id}?")
-    Call<WMovie> getMovie(
-        @Path("movie_id") int movie_id,
-        @Query("api_key") String api_key
-    );
-
     @GET("/3/movie/popular?")
     Call<ResWMovie> getPopularMovies(
             @Query("api_key") String api_key,
@@ -31,10 +25,10 @@ public interface WMovieInterface {
             @Query("language") String language
     );
 
-    @GET("/3/movie/popular?")
-    Call<ResWMovie> getTotalMovies(
+    @GET("/3/genre/movie/list?")
+    Call<ResWMovie> geGenres(
             @Query("api_key") String api_key,
-            @Query("page") int page
+            @Query("language") String language
     );
 
 }

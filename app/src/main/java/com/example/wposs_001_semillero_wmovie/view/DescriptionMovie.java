@@ -17,7 +17,7 @@ import java.util.Objects;
 
 public class DescriptionMovie extends AppCompatActivity {
 
-    TextView titleDescription, overviewDescription, textViewSeeMore;
+    TextView titleDescription, overviewDescription, textViewSeeMore, textViewGenreDescription;
     ImageView posterMovieDescription, imageViewCast;
     Button buttonBack;
     private boolean hideOverride;
@@ -34,11 +34,13 @@ public class DescriptionMovie extends AppCompatActivity {
         buttonBack = (Button) findViewById(R.id.buttonBack);
         textViewSeeMore = (TextView) findViewById(R.id.textviewSeeMore);
         imageViewCast = (ImageView) findViewById(R.id.imageViewCast);
+        textViewGenreDescription = (TextView) findViewById(R.id.textViewGenresDescription);
         hideOverride = false;
 
         WMovie movies = (WMovie) getIntent().getSerializableExtra("listMovie");
         titleDescription.setText(movies.getTitle());
         overviewDescription.setText(String.valueOf(movies.getOverview()));
+        textViewGenreDescription.setText(movies.getGenre_ids()[0]);
         Glide.with(this).
                 load("https://image.tmdb.org/t/p/w500/" + movies.getPoster_path())
                 .centerCrop().crossFade().diskCacheStrategy(DiskCacheStrategy.ALL)
@@ -58,12 +60,12 @@ public class DescriptionMovie extends AppCompatActivity {
         textViewSeeMore.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(hideOverride == false) {
+                if (hideOverride == false) {
                     overviewDescription.setLines(overviewDescription.getLineCount());
                     hideOverride = true;
                     textViewSeeMore.setText(R.string.see_less);
-                }else{
-                overviewDescription.setLines(4);
+                } else {
+                    overviewDescription.setLines(4);
                     hideOverride = false;
                     textViewSeeMore.setText(R.string.see_more);
                 }
