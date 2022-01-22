@@ -6,6 +6,8 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.os.Handler;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ProgressBar;
@@ -23,7 +25,7 @@ import com.example.wposs_001_semillero_wmovie.view.adapters.ListMovieAdapter;
 
 import java.util.ArrayList;
 
-public class MainActivity extends AppCompatActivity implements InterfaceMainActivity.ViewActivity {
+public class ViewMainActivity extends AppCompatActivity implements InterfaceMainActivity.ViewActivity {
     private RecyclerView recyclerView;
     private ListMovieAdapter listMovieAdapter;
     private ProgressBar progressBar;
@@ -141,6 +143,24 @@ public class MainActivity extends AppCompatActivity implements InterfaceMainActi
         } else {
             Toast.makeText(this, "Sin Conexion a Internet\nRefresque de nuevo", Toast.LENGTH_LONG).show();
         }
+    }
+
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_main, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id_item = item.getItemId();
+        if (id_item == R.id.search) {
+            Intent intent = new Intent(this, ViewSearchMovieActivity.class);
+            startActivity(intent);
+        }
+        if (id_item == R.id.logout) {
+            finish();
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     //Se cometan metodos usados para consulta por nombre por la API

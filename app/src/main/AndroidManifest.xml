@@ -3,7 +3,7 @@
     package="com.example.wposs_001_semillero_wmovie">
 
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <application
         android:allowBackup="true"
@@ -12,6 +12,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.WPOSS_001_SEMILLERO_WMOVIE">
+        <activity
+            android:name=".view.ViewSearchMovieActivity"
+            android:exported="false" />
         <activity
             android:name=".view.DescriptionMovie"
             android:exported="false" />
@@ -26,8 +29,8 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".view.MainActivity"
-            android:exported="false"/>
+            android:name=".view.ViewMainActivity"
+            android:exported="false" />
 
         <meta-data
             android:name="preloaded_fonts"

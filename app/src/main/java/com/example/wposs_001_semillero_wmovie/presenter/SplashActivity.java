@@ -6,7 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.SystemClock;
 
-import com.example.wposs_001_semillero_wmovie.view.MainActivity;
+import com.example.wposs_001_semillero_wmovie.view.ViewMainActivity;
 
 public class SplashActivity extends AppCompatActivity {
 
@@ -14,7 +14,7 @@ public class SplashActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         SystemClock.sleep(3000);
-        Intent intent = new Intent(this, MainActivity.class);
+        Intent intent = new Intent(this, ViewMainActivity.class);
         startActivity(intent);
         finish();
     }
