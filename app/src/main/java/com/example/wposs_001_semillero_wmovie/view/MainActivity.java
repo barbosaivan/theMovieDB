@@ -1,11 +1,19 @@
 package com.example.wposs_001_semillero_wmovie.view;
 
+import android.content.Context;
+import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
+import android.os.Bundle;
+import android.os.Handler;
+import android.view.View;
+import android.widget.Button;
+import android.widget.ProgressBar;
+import android.widget.Toast;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
-import android.content.Intent;
-import android.os.Bundle;
 
 import com.example.wposs_001_semillero_wmovie.R;
 import com.example.wposs_001_semillero_wmovie.interfaces.InterfaceMainActivity;
@@ -18,6 +26,8 @@ import java.util.ArrayList;
 public class MainActivity extends AppCompatActivity implements InterfaceMainActivity.ViewActivity {
     private RecyclerView recyclerView;
     private ListMovieAdapter listMovieAdapter;
+    private ProgressBar progressBar;
+    private Button buttonRecargar;
     private boolean load;
     private int loadPage;
     ArrayList<WMovie> movies;
@@ -29,14 +39,18 @@ public class MainActivity extends AppCompatActivity implements InterfaceMainActi
         setContentView(R.layout.activity_main);
         presenterActivity = new PresenterMainActivity(this);
 
+        recyclerView = (RecyclerView) findViewById(R.id.listReciclerView);
+        progressBar = (ProgressBar) findViewById(R.id.progressBar);
+        buttonRecargar = (Button) findViewById(R.id.buttonRecargar);
+        progressBar.setVisibility(View.VISIBLE);
+        recyclerView.setVisibility(View.GONE);
+
         movies = new ArrayList<>();
         loadPage = 1;
-        presenterActivity.bringRetrofitResPopular(loadPage);
-        init();
+        internetConnection();
     }
 
     public void init() {
-        recyclerView = (RecyclerView) findViewById(R.id.listReciclerView);
         listMovieAdapter = new ListMovieAdapter(this, new ListMovieAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(WMovie item) {
@@ -60,7 +74,8 @@ public class MainActivity extends AppCompatActivity implements InterfaceMainActi
 
                     if (load) {
                         if ((visibleItemCount + pastVisibleItems) >= totalItemCount) {
-
+                            progressBar.setVisibility(View.VISIBLE);
+                            internetConnectionLoadingData();
                             load = false;
                             loadPage += 1;
                             presenterActivity.bringRetrofitResPopular(loadPage);
@@ -80,12 +95,52 @@ public class MainActivity extends AppCompatActivity implements InterfaceMainActi
     @Override
     public void valorList(ArrayList<WMovie> movies) {
         this.movies = movies;
+
+        if (movies.size() > 0) {
+            progressBar.setVisibility(View.GONE);
+            recyclerView.setVisibility(View.VISIBLE);
+        }
         listMovieAdapter.adicionarListaPokemon(movies);
     }
 
     @Override
     public void valorLoad(boolean load) {
         this.load = load;
+    }
+
+    public void internetConnection() {
+        ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo networkInfo = connectivityManager.getActiveNetworkInfo();
+
+        if (networkInfo != null && networkInfo.isConnected()) {
+            buttonRecargar.setVisibility(View.GONE);
+            presenterActivity.bringRetrofitResPopular(loadPage);
+            init();
+        } else {
+            buttonRecargar.setVisibility(View.GONE);
+            Toast.makeText(this, "Sin Conexion a Internet", Toast.LENGTH_LONG).show();
+            Handler handler = new Handler();
+            handler.postDelayed(new Runnable() {
+                public void run() {
+                    buttonRecargar.setVisibility(View.VISIBLE);
+                    buttonRecargar.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            internetConnection();
+                        }
+                    });
+                }
+            }, 6000);
+        }
+    }
+
+    public void internetConnectionLoadingData() {
+        ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo networkInfo = connectivityManager.getActiveNetworkInfo();
+        if (networkInfo != null && networkInfo.isConnected()) {
+        } else {
+            Toast.makeText(this, "Sin Conexion a Internet\nRefresque de nuevo", Toast.LENGTH_LONG).show();
+        }
     }
 
     //Se cometan metodos usados para consulta por nombre por la API
