@@ -4,6 +4,87 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/Violeta"
     tools:context=".view.ViewSearchMovieActivity">
+
+    <RelativeLayout
+        android:id="@+id/linearLayoutSearchDescription"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginHorizontal="20dp"
+        android:layout_marginTop="15dp"
+        android:background="@drawable/margin_search"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="MissingConstraints">
+
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/buttonBackSearchMovie"
+            android:layout_width="60dp"
+            android:layout_height="match_parent"
+            android:layout_alignParentStart="true"
+            android:layout_gravity="center"
+            android:layout_marginStart="0dp"
+            android:layout_marginEnd="0dp"
+            android:background="@color/tranparent"
+            app:icon="@drawable/ic_back"
+            app:iconGravity="textEnd"
+            app:iconSize="30dp"
+            app:iconTint="@color/Violeta" />
+
+        <EditText
+            android:id="@+id/editTexNameMovie"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentBottom="true"
+            android:layout_gravity="center"
+            android:layout_marginStart="0dp"
+            android:layout_toStartOf="@+id/buttonSearchMovie"
+            android:layout_toEndOf="@+id/buttonBackSearchMovie"
+            android:background="@color/white"
+            android:backgroundTint="@color/tranparent"
+            android:hint="Nombre Pelicula"
+            android:singleLine="true"
+            android:textColor="@color/Violeta"
+            android:textCursorDrawable="@null"
+            android:textSize="17sp" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/buttonSearchMovie"
+            android:layout_width="60dp"
+            android:layout_height="match_parent"
+            android:layout_alignParentEnd="true"
+            android:layout_gravity="center"
+            android:layout_marginEnd="0dp"
+            android:background="@color/tranparent"
+            app:icon="@drawable/ic_search"
+            app:iconGravity="textStart"
+            app:iconSize="30dp"
+            app:iconTint="@color/Violeta" />
+    </RelativeLayout>
+
+    <ProgressBar
+        android:id="@+id/progressBar"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="MissingConstraints" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/listRecyclerViewSearchNameMovie"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayoutSearchDescription"
+        app:layout_constraintVertical_bias="0.03" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
