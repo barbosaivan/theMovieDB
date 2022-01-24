@@ -41,7 +41,11 @@ public class DescriptionMovie extends AppCompatActivity {
         WMovie movies = (WMovie) getIntent().getSerializableExtra("listMovie");
         titleDescription.setText(movies.getTitle());
         overviewDescription.setText(String.valueOf(movies.getOverview()));
-        textViewGenreDescription.setText(movies.getGenre_ids()[0]);
+        if(movies.getGenre_ids().length > 0){
+            textViewGenreDescription.setText(movies.getGenre_ids()[0]);
+        }else{
+            textViewGenreDescription.setText("No tiene");
+        };
         Glide.with(this).
                 load("https://image.tmdb.org/t/p/w500/" + movies.getPoster_path())
                 .centerCrop().crossFade().diskCacheStrategy(DiskCacheStrategy.ALL)
