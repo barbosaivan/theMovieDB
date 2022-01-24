@@ -23,7 +23,7 @@ public class ModelSearchMovieActivity implements InterfaceSearchMovieActivity.mo
     public void retrofitResNameMovies(int nextpage, String nameMovie) {
         WMovieInterface wMovieInterface = Service.getwMovie();
         Call<SearchResWMovie> searchResWMovieCall = wMovieInterface.searchMovie(
-                Credentials.key_api, nameMovie, nextpage
+                Credentials.key_api, nameMovie, nextpage, "es-MX"
         );
         searchResWMovieCall.enqueue(new Callback<SearchResWMovie>() {
             @Override
