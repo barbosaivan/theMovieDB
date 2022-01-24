@@ -1,12 +1,12 @@
 package com.example.wposs_001_semillero_wmovie.view;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
@@ -21,6 +21,7 @@ public class DescriptionMovie extends AppCompatActivity {
     ImageView posterMovieDescription, imageViewCast;
     Button buttonBack;
     private boolean hideOverride;
+    private int minLines;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,14 +61,18 @@ public class DescriptionMovie extends AppCompatActivity {
         textViewSeeMore.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (hideOverride == false) {
-                    overviewDescription.setLines(overviewDescription.getLineCount());
-                    hideOverride = true;
-                    textViewSeeMore.setText(R.string.see_less);
+                if (overviewDescription.getLineCount() > 4) {
+                    if (hideOverride == false) {
+                        overviewDescription.setLines(overviewDescription.getLineCount());
+                        hideOverride = true;
+                        textViewSeeMore.setText(R.string.see_less);
+                    } else {
+                        overviewDescription.setLines(4);
+                        hideOverride = false;
+                        textViewSeeMore.setText(R.string.see_more);
+                    }
                 } else {
-                    overviewDescription.setLines(4);
-                    hideOverride = false;
-                    textViewSeeMore.setText(R.string.see_more);
+                    textViewSeeMore.setVisibility(View.GONE);
                 }
             }
         });
