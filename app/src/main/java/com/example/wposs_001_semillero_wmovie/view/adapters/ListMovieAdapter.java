@@ -42,7 +42,11 @@ public class ListMovieAdapter extends RecyclerView.Adapter<ListMovieAdapter.View
         WMovie m = dataset.get(position);
         holder.textViewAverage.setText(String.valueOf(m.getVote_average()));
         holder.textViewTitle.setText(m.getTitle());
-        holder.textViewReleaseDate.setText(m.getRelease_date());
+        if(m.getGenre_ids().length > 0){
+            holder.textViewGenres.setText(m.getGenre_ids()[0]);
+        }else{
+            holder.textViewGenres.setText("No Tiene");
+        }
         holder.textViewGenres.setText(m.getGenre_ids()[0]);
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
