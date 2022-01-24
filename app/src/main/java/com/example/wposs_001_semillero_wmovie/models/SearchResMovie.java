@@ -5,7 +5,7 @@ import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
-public class SearchResWMovie {
+public class SearchResMovie {
 
     @SerializedName("total_results")
     @Expose()
@@ -13,19 +13,19 @@ public class SearchResWMovie {
 
     @SerializedName("results")
     @Expose()
-    private List<WMovie> movies;
+    private List<Movie> movies;
 
-    public int getTotal_count(){
+    public int getTotal_count() {
         return total_count;
     }
 
-    public List<WMovie> getMovies(){
-        return  movies;
+    public List<Movie> getMovies() {
+        return movies;
     }
 
     @Override
     public String toString() {
-        return "SearchResWMovie{" +
+        return "SearchResMovie{" +
                 "total_count=" + total_count +
                 ", movies=" + movies +
                 '}';

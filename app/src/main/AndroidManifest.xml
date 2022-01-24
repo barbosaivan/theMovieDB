@@ -19,7 +19,7 @@
             android:name=".view.DescriptionMovie"
             android:exported="false" />
         <activity
-            android:name=".presenter.SplashActivity"
+            android:name=".presenter.Splash"
             android:exported="true"
             android:theme="@style/SplashScream">
             <intent-filter>

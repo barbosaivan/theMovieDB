@@ -19,7 +19,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.wposs_001_semillero_wmovie.R;
 import com.example.wposs_001_semillero_wmovie.interfaces.InterfaceMainActivity;
-import com.example.wposs_001_semillero_wmovie.models.WMovie;
+import com.example.wposs_001_semillero_wmovie.models.Movie;
 import com.example.wposs_001_semillero_wmovie.presenter.PresenterMainActivity;
 import com.example.wposs_001_semillero_wmovie.view.adapters.ListMovieAdapter;
 
@@ -32,7 +32,7 @@ public class ViewMainActivity extends AppCompatActivity implements InterfaceMain
     private Button buttonRecargar;
     private boolean load;
     private int loadPage;
-    ArrayList<WMovie> movies;
+    ArrayList<Movie> movies;
     InterfaceMainActivity.presenterActivity presenterActivity;
 
     @Override
@@ -55,7 +55,7 @@ public class ViewMainActivity extends AppCompatActivity implements InterfaceMain
     public void init() {
         listMovieAdapter = new ListMovieAdapter(this, new ListMovieAdapter.OnItemClickListener() {
             @Override
-            public void onItemClick(WMovie item) {
+            public void onItemClick(Movie item) {
                 moveTodescription(item);
             }
         });
@@ -88,21 +88,21 @@ public class ViewMainActivity extends AppCompatActivity implements InterfaceMain
         });
     }
 
-    private void moveTodescription(WMovie item) {
+    private void moveTodescription(Movie item) {
         Intent intent = new Intent(this, DescriptionMovie.class);
         intent.putExtra("listMovie", item);
         startActivity(intent);
     }
 
     @Override
-    public void valorList(ArrayList<WMovie> movies) {
+    public void valorList(ArrayList<Movie> movies) {
         this.movies = movies;
 
         if (movies.size() > 0) {
             progressBar.setVisibility(View.GONE);
             recyclerView.setVisibility(View.VISIBLE);
         }
-        listMovieAdapter.adicionarListaPokemon(movies);
+        listMovieAdapter.addListMovies(movies);
     }
 
     @Override
@@ -163,37 +163,4 @@ public class ViewMainActivity extends AppCompatActivity implements InterfaceMain
         return super.onOptionsItemSelected(item);
     }
 
-    //Se cometan metodos usados para consulta por nombre por la API
-    /*
-    private void getRetrofitRes() {
-        WMovieInterface wMovieInterface = Service.getwMovie();
-        Call<SearchResWMovie> searchResWMovieCall = wMovieInterface.searchMovie(
-                Credentials.key_api, "action", "1"
-        );
-        searchResWMovieCall.enqueue(new Callback<SearchResWMovie>() {
-            @Override
-            public void onResponse(Call<SearchResWMovie> call, Response<SearchResWMovie> response) {
-                if (response.code() == 200) {
-                    Log.v("Tag", "el response" + response.body().toString());
-                    List<WMovie> movies = new ArrayList<>(response.body().getMovies());
-
-                    for (WMovie movie : movies) {
-                        Log.v("Tag", "La fecha " + movie.getRelease_date());
-                        Log.v("Tag", "El titulo" + movie.getTitle());
-                    }
-                } else {
-                    try {
-                        Log.v("Tag", "Error" + response.errorBody().string());
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                }
-            }
-            @Override
-            public void onFailure(Call<SearchResWMovie> call, Throwable t) {
-                t.printStackTrace();
-            }
-        });
-    }
-     */
 }

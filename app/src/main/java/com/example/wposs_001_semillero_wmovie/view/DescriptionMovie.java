@@ -11,7 +11,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.example.wposs_001_semillero_wmovie.R;
-import com.example.wposs_001_semillero_wmovie.models.WMovie;
+import com.example.wposs_001_semillero_wmovie.models.Movie;
 
 import java.util.Objects;
 
@@ -21,7 +21,6 @@ public class DescriptionMovie extends AppCompatActivity {
     ImageView posterMovieDescription, imageViewCast;
     Button buttonBack;
     private boolean hideOverride;
-    private int minLines;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,14 +37,14 @@ public class DescriptionMovie extends AppCompatActivity {
         textViewGenreDescription = (TextView) findViewById(R.id.textViewGenresDescription);
         hideOverride = false;
 
-        WMovie movies = (WMovie) getIntent().getSerializableExtra("listMovie");
+        Movie movies = (Movie) getIntent().getSerializableExtra("listMovie");
         titleDescription.setText(movies.getTitle());
         overviewDescription.setText(String.valueOf(movies.getOverview()));
-        if(movies.getGenre_ids().length > 0){
+        if (movies.getGenre_ids().length > 0) {
             textViewGenreDescription.setText(movies.getGenre_ids()[0]);
-        }else{
+        } else {
             textViewGenreDescription.setText("No tiene");
-        };
+        }
         Glide.with(this).
                 load("https://image.tmdb.org/t/p/w500/" + movies.getPoster_path())
                 .centerCrop().crossFade().diskCacheStrategy(DiskCacheStrategy.ALL)

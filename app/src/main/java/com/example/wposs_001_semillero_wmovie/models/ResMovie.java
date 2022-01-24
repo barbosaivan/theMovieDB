@@ -5,15 +5,15 @@ import com.google.gson.annotations.SerializedName;
 
 import java.util.ArrayList;
 
-public class ResWMovie {
+public class ResMovie {
     @SerializedName("results")
     @Expose
-    private ArrayList<WMovie> movie;
+    private ArrayList<Movie> movie;
 
     @Expose
     private ArrayList<GenresMovies> genres;
 
-    public ArrayList<WMovie> getMovie() {
+    public ArrayList<Movie> getMovie() {
         return movie;
     }
 
@@ -23,7 +23,7 @@ public class ResWMovie {
 
     @Override
     public String toString() {
-        return "ResWMovie{" +
+        return "ResMovie{" +
                 "movie=" + movie +
                 ", genres=" + genres +
                 '}';

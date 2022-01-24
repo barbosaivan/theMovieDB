@@ -12,17 +12,17 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.example.wposs_001_semillero_wmovie.R;
-import com.example.wposs_001_semillero_wmovie.models.WMovie;
+import com.example.wposs_001_semillero_wmovie.models.Movie;
 
 import java.util.ArrayList;
 
 public class ListSearchMovieAdapter extends RecyclerView.Adapter<ListSearchMovieAdapter.ViewHolder> {
-    private ArrayList<WMovie> dataset;
+    private ArrayList<Movie> dataset;
     private Context context;
     final ListSearchMovieAdapter.OnItemClickListener listener;
 
     public interface OnItemClickListener {
-        void onItemClick(WMovie item);
+        void onItemClick(Movie item);
     }
 
     public ListSearchMovieAdapter(Context context, ListSearchMovieAdapter.OnItemClickListener listener) {
@@ -39,7 +39,7 @@ public class ListSearchMovieAdapter extends RecyclerView.Adapter<ListSearchMovie
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        WMovie m = dataset.get(position);
+        Movie m = dataset.get(position);
         holder.textViewAverageSearchMovie.setText(String.valueOf(m.getVote_average()));
         holder.textViewTitleSearchMovie.setText(m.getTitle());
         holder.textViewReleaseDateSearchMovie.setText(m.getRelease_date());
@@ -65,7 +65,7 @@ public class ListSearchMovieAdapter extends RecyclerView.Adapter<ListSearchMovie
         return dataset.size();
     }
 
-    public void addListMovies(ArrayList<WMovie> listMovies) {
+    public void addListMovies(ArrayList<Movie> listMovies) {
         dataset.addAll(listMovies);
         notifyDataSetChanged();
     }

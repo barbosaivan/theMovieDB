@@ -12,17 +12,17 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.example.wposs_001_semillero_wmovie.R;
-import com.example.wposs_001_semillero_wmovie.models.WMovie;
+import com.example.wposs_001_semillero_wmovie.models.Movie;
 
 import java.util.ArrayList;
 
 public class ListMovieAdapter extends RecyclerView.Adapter<ListMovieAdapter.ViewHolder> {
-    private ArrayList<WMovie> dataset;
+    private ArrayList<Movie> dataset;
     private Context context;
     final ListMovieAdapter.OnItemClickListener listener;
 
     public interface OnItemClickListener {
-        void onItemClick(WMovie item);
+        void onItemClick(Movie item);
     }
 
     public ListMovieAdapter(Context context, ListMovieAdapter.OnItemClickListener listener) {
@@ -39,12 +39,12 @@ public class ListMovieAdapter extends RecyclerView.Adapter<ListMovieAdapter.View
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        WMovie m = dataset.get(position);
+        Movie m = dataset.get(position);
         holder.textViewAverage.setText(String.valueOf(m.getVote_average()));
         holder.textViewTitle.setText(m.getTitle());
-        if(m.getGenre_ids().length > 0){
+        if (m.getGenre_ids().length > 0) {
             holder.textViewGenres.setText(m.getGenre_ids()[0]);
-        }else{
+        } else {
             holder.textViewGenres.setText("No Tiene");
         }
         holder.textViewGenres.setText(m.getGenre_ids()[0]);
@@ -64,7 +64,7 @@ public class ListMovieAdapter extends RecyclerView.Adapter<ListMovieAdapter.View
         return dataset.size();
     }
 
-    public void adicionarListaPokemon(ArrayList<WMovie> listMovies) {
+    public void addListMovies(ArrayList<Movie> listMovies) {
         dataset.addAll(listMovies);
         notifyDataSetChanged();
     }

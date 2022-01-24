@@ -2,7 +2,7 @@ package com.example.wposs_001_semillero_wmovie.presenter;
 
 import com.example.wposs_001_semillero_wmovie.interfaces.InterfaceMainActivity;
 import com.example.wposs_001_semillero_wmovie.models.ModelMainActivity;
-import com.example.wposs_001_semillero_wmovie.models.WMovie;
+import com.example.wposs_001_semillero_wmovie.models.Movie;
 
 import java.util.ArrayList;
 
@@ -16,7 +16,7 @@ public class PresenterMainActivity implements InterfaceMainActivity.presenterAct
     }
 
     @Override
-    public void sendRetrofitResPopular(ArrayList<WMovie> list) {
+    public void sendRetrofitResPopular(ArrayList<Movie> list) {
         viewActivity.valorList(list);
     }
 

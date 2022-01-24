@@ -1,12 +1,12 @@
 package com.example.wposs_001_semillero_wmovie.interfaces;
 
-import com.example.wposs_001_semillero_wmovie.models.WMovie;
+import com.example.wposs_001_semillero_wmovie.models.Movie;
 
 import java.util.ArrayList;
 
 public interface InterfaceMainActivity {
     interface ViewActivity {
-        public void valorList(ArrayList<WMovie> movies);
+        public void valorList(ArrayList<Movie> movies);
 
         public void valorLoad(boolean load);
     }
@@ -14,7 +14,7 @@ public interface InterfaceMainActivity {
     interface presenterActivity {
         public void bringRetrofitResPopular(int loadPage);
 
-        public void sendRetrofitResPopular(ArrayList<WMovie> list);
+        public void sendRetrofitResPopular(ArrayList<Movie> list);
 
         public void reloadLoadPage(boolean loadPage);
 

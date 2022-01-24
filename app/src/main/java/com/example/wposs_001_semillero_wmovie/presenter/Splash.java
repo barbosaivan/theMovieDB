@@ -1,14 +1,14 @@
 package com.example.wposs_001_semillero_wmovie.presenter;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.SystemClock;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.example.wposs_001_semillero_wmovie.view.ViewMainActivity;
 
-public class SplashActivity extends AppCompatActivity {
+public class Splash extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

@@ -17,7 +17,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.wposs_001_semillero_wmovie.R;
 import com.example.wposs_001_semillero_wmovie.interfaces.InterfaceSearchMovieActivity;
-import com.example.wposs_001_semillero_wmovie.models.WMovie;
+import com.example.wposs_001_semillero_wmovie.models.Movie;
 import com.example.wposs_001_semillero_wmovie.presenter.PresenterSearchMovieActivity;
 import com.example.wposs_001_semillero_wmovie.view.adapters.ListSearchMovieAdapter;
 
@@ -30,7 +30,7 @@ public class ViewSearchMovieActivity extends AppCompatActivity implements Interf
     private ProgressBar progressBar;
     private boolean load;
     private int loadPage;
-    ArrayList<WMovie> movies;
+    ArrayList<Movie> movies;
     InterfaceSearchMovieActivity.presenterSearchMovieActivity presenterSearchMovieActivity;
     private EditText nameMovie;
     Button buttonBackSearchMovie, buttonSearchMovie;
@@ -73,7 +73,7 @@ public class ViewSearchMovieActivity extends AppCompatActivity implements Interf
     public void init() {
         listNameMovieAdapter = new ListSearchMovieAdapter(this, new ListSearchMovieAdapter.OnItemClickListener() {
             @Override
-            public void onItemClick(WMovie item) {
+            public void onItemClick(Movie item) {
                 moveTodescription(item);
             }
         });
@@ -106,14 +106,14 @@ public class ViewSearchMovieActivity extends AppCompatActivity implements Interf
         });
     }
 
-    private void moveTodescription(WMovie item) {
+    private void moveTodescription(Movie item) {
         Intent intent = new Intent(this, DescriptionMovie.class);
         intent.putExtra("listMovie", item);
         startActivity(intent);
     }
 
     @Override
-    public void valorList(ArrayList<WMovie> movies) {
+    public void valorList(ArrayList<Movie> movies) {
         this.movies = movies;
 
         if (movies.size() > 0) {

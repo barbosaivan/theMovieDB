@@ -2,7 +2,7 @@ package com.example.wposs_001_semillero_wmovie.presenter;
 
 import com.example.wposs_001_semillero_wmovie.interfaces.InterfaceSearchMovieActivity;
 import com.example.wposs_001_semillero_wmovie.models.ModelSearchMovieActivity;
-import com.example.wposs_001_semillero_wmovie.models.WMovie;
+import com.example.wposs_001_semillero_wmovie.models.Movie;
 
 import java.util.ArrayList;
 
@@ -16,7 +16,7 @@ public class PresenterSearchMovieActivity implements InterfaceSearchMovieActivit
     }
 
     @Override
-    public void sendRetrofitResNameMovie(ArrayList<WMovie> list) {
+    public void sendRetrofitResNameMovie(ArrayList<Movie> list) {
         viewSearchMovieActivity.valorList(list);
     }
 

@@ -22,16 +22,16 @@ public class ModelMainActivity implements InterfaceMainActivity.modelActivity {
     @Override
     public void RetrofitResPopular(int nextPage) {
         WMovieInterface wMovieInterface = Service.getwMovie();
-        Call<ResWMovie> resWMovieCall = wMovieInterface.getPopularMovies(
+        Call<ResMovie> resWMovieCall = wMovieInterface.getPopularMovies(
                 Credentials.key_api, nextPage, "es-MX"
         );
 
-        resWMovieCall.enqueue(new Callback<ResWMovie>() {
+        resWMovieCall.enqueue(new Callback<ResMovie>() {
             @Override
-            public void onResponse(Call<ResWMovie> call, Response<ResWMovie> response) {
+            public void onResponse(Call<ResMovie> call, Response<ResMovie> response) {
                 presenterActivity.reloadLoadPage(true);
                 if (response.code() == 200) {
-                    ArrayList<WMovie> movies = new ArrayList<>(response.body().getMovie());
+                    ArrayList<Movie> movies = new ArrayList<>(response.body().getMovie());
                     retrofitResGenres(movies);
                 } else {
                     try {
@@ -43,26 +43,26 @@ public class ModelMainActivity implements InterfaceMainActivity.modelActivity {
             }
 
             @Override
-            public void onFailure(Call<ResWMovie> call, Throwable t) {
+            public void onFailure(Call<ResMovie> call, Throwable t) {
                 presenterActivity.reloadLoadPage(true);
                 t.printStackTrace();
             }
         });
     }
 
-    public void retrofitResGenres(ArrayList<WMovie> movies) {
+    public void retrofitResGenres(ArrayList<Movie> movies) {
         WMovieInterface wMovieInterface = Service.getwMovie();
-        Call<ResWMovie> resWMovieCall = wMovieInterface.geGenres(
+        Call<ResMovie> resWMovieCall = wMovieInterface.geGenres(
                 Credentials.key_api, "es-MX"
         );
 
-        resWMovieCall.enqueue(new Callback<ResWMovie>() {
+        resWMovieCall.enqueue(new Callback<ResMovie>() {
             @Override
-            public void onResponse(Call<ResWMovie> call, Response<ResWMovie> response) {
+            public void onResponse(Call<ResMovie> call, Response<ResMovie> response) {
                 presenterActivity.reloadLoadPage(true);
                 if (response.code() == 200) {
                     ArrayList<GenresMovies> genresMovies = new ArrayList<>(response.body().getGenres());
-                    for (WMovie movie : movies) {
+                    for (Movie movie : movies) {
                         for (int i = 0; i < movie.getGenre_ids().length; i++) {
                             for (GenresMovies generos : genresMovies) {
                                 if (movie.getGenre_ids()[i].equals(generos.getId())) {
@@ -82,7 +82,7 @@ public class ModelMainActivity implements InterfaceMainActivity.modelActivity {
             }
 
             @Override
-            public void onFailure(Call<ResWMovie> call, Throwable t) {
+            public void onFailure(Call<ResMovie> call, Throwable t) {
                 t.printStackTrace();
             }
         });
