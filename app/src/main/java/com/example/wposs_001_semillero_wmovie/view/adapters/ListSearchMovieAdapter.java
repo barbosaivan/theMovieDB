@@ -12,9 +12,10 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.example.wposs_001_semillero_wmovie.R;
-import com.example.wposs_001_semillero_wmovie.models.Movie;
+import com.example.wposs_001_semillero_wmovie.entities.Movie;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class ListSearchMovieAdapter extends RecyclerView.Adapter<ListSearchMovieAdapter.ViewHolder> {
     private ArrayList<Movie> dataset;
@@ -65,7 +66,7 @@ public class ListSearchMovieAdapter extends RecyclerView.Adapter<ListSearchMovie
         return dataset.size();
     }
 
-    public void addListMovies(ArrayList<Movie> listMovies) {
+    public void addListMovies(List<Movie> listMovies) {
         dataset.addAll(listMovies);
         notifyDataSetChanged();
     }

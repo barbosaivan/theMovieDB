@@ -1,22 +1,22 @@
 package com.example.wposs_001_semillero_wmovie.presenter;
 
 import com.example.wposs_001_semillero_wmovie.interfaces.InterfaceSearchMovieActivity;
-import com.example.wposs_001_semillero_wmovie.models.ModelSearchMovieActivity;
-import com.example.wposs_001_semillero_wmovie.models.Movie;
+import com.example.wposs_001_semillero_wmovie.models.ModelSearchMovie;
+import com.example.wposs_001_semillero_wmovie.entities.Movie;
 
-import java.util.ArrayList;
+import java.util.List;
 
-public class PresenterSearchMovieActivity implements InterfaceSearchMovieActivity.presenterSearchMovieActivity {
-    InterfaceSearchMovieActivity.modelSearchMovieActivity modelSearchMovieActivity;
+public class PresenterSearchMovie implements InterfaceSearchMovieActivity.PresenterSearchMovieActivity {
+    InterfaceSearchMovieActivity.ModelSearchMovieActivity modelSearchMovieActivity;
     InterfaceSearchMovieActivity.ViewSearchMovieActivity viewSearchMovieActivity;
 
-    public PresenterSearchMovieActivity(InterfaceSearchMovieActivity.ViewSearchMovieActivity viewSearchMovieActivity) {
+    public PresenterSearchMovie(InterfaceSearchMovieActivity.ViewSearchMovieActivity viewSearchMovieActivity) {
         this.viewSearchMovieActivity = viewSearchMovieActivity;
-        this.modelSearchMovieActivity = new ModelSearchMovieActivity(this);
+        this.modelSearchMovieActivity = new ModelSearchMovie(this);
     }
 
     @Override
-    public void sendRetrofitResNameMovie(ArrayList<Movie> list) {
+    public void sendRetrofitResNameMovie(List<Movie> list) {
         viewSearchMovieActivity.valorList(list);
     }
 

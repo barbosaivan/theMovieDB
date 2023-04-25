@@ -1,26 +1,26 @@
 package com.example.wposs_001_semillero_wmovie.interfaces;
 
-import com.example.wposs_001_semillero_wmovie.models.Movie;
+import com.example.wposs_001_semillero_wmovie.entities.Movie;
 
-import java.util.ArrayList;
+import java.util.List;
 
 public interface InterfaceMainActivity {
     interface ViewActivity {
-        public void valorList(ArrayList<Movie> movies);
+        void valorList(List<Movie> movies);
 
-        public void valorLoad(boolean load);
+        void valorLoad(boolean load);
     }
 
-    interface presenterActivity {
-        public void bringRetrofitResPopular(int loadPage);
+    interface PresenterActivity {
+        void bringRetrofitResPopular(int loadPage);
 
-        public void sendRetrofitResPopular(ArrayList<Movie> list);
+        void sendRetrofitResPopular(List<Movie> list);
 
-        public void reloadLoadPage(boolean loadPage);
+        void reloadLoadPage(boolean loadPage);
 
     }
 
-    interface modelActivity {
-        public void RetrofitResPopular(int nextPage);
+    interface ModelActivity {
+        void retrofitResPopular(int nextPage);
     }
 }

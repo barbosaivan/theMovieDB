@@ -2,12 +2,12 @@ package com.example.wposs_001_semillero_wmovie.presenter;
 
 import com.example.wposs_001_semillero_wmovie.interfaces.InterfaceMainActivity;
 import com.example.wposs_001_semillero_wmovie.models.ModelMainActivity;
-import com.example.wposs_001_semillero_wmovie.models.Movie;
+import com.example.wposs_001_semillero_wmovie.entities.Movie;
 
-import java.util.ArrayList;
+import java.util.List;
 
-public class PresenterMainActivity implements InterfaceMainActivity.presenterActivity {
-    InterfaceMainActivity.modelActivity modelActivity;
+public class PresenterMainActivity implements InterfaceMainActivity.PresenterActivity {
+    InterfaceMainActivity.ModelActivity modelActivity;
     InterfaceMainActivity.ViewActivity viewActivity;
 
     public PresenterMainActivity(InterfaceMainActivity.ViewActivity viewActivity) {
@@ -16,13 +16,13 @@ public class PresenterMainActivity implements InterfaceMainActivity.presenterAct
     }
 
     @Override
-    public void sendRetrofitResPopular(ArrayList<Movie> list) {
+    public void sendRetrofitResPopular(List<Movie> list) {
         viewActivity.valorList(list);
     }
 
     @Override
     public void bringRetrofitResPopular(int loadPage) {
-        modelActivity.RetrofitResPopular(loadPage);
+        modelActivity.retrofitResPopular(loadPage);
     }
 
     @Override

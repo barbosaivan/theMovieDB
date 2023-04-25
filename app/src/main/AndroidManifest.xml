@@ -13,7 +13,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.WPOSS_001_SEMILLERO_WMOVIE">
         <activity
-            android:name=".view.ViewSearchMovieActivity"
+            android:name=".view.ViewSearchMovie"
             android:exported="false" />
         <activity
             android:name=".view.DescriptionMovie"

@@ -1,19 +1,24 @@
 package com.example.wposs_001_semillero_wmovie.models;
 
 import com.example.wposs_001_semillero_wmovie.interfaces.WMovieInterface;
+import com.example.wposs_001_semillero_wmovie.utils.CredentialsApi;
 
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class Service {
-    private static Retrofit.Builder retrofitBuilder = new Retrofit.Builder().baseUrl(Credentials.url_base)
+
+    private Service() {
+        throw new IllegalStateException("Utility class");
+    }
+    private static final Retrofit.Builder retrofitBuilder = new Retrofit.Builder().baseUrl(CredentialsApi.URL_BASE)
             .addConverterFactory(GsonConverterFactory.create());
 
-    private static Retrofit retrofit = retrofitBuilder.build();
+    private static final Retrofit retrofit = retrofitBuilder.build();
 
-    private static WMovieInterface wMovieInterface = retrofit.create(WMovieInterface.class);
+    private static final WMovieInterface wMovieInterface = retrofit.create(WMovieInterface.class);
 
-    public static WMovieInterface getwMovie() {
+    public static WMovieInterface getWMovie() {
         return wMovieInterface;
     }
 }

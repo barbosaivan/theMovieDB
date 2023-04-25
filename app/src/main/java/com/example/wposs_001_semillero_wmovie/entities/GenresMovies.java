@@ -1,8 +1,8 @@
-package com.example.wposs_001_semillero_wmovie.models;
+package com.example.wposs_001_semillero_wmovie.entities;
 
 public class GenresMovies {
     private String id;
-    private String name;
+    private final String name;
 
     public GenresMovies(String id, String name) {
         this.id = id;

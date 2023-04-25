@@ -5,4 +5,7 @@
     <string name="Button_back">Volver</string>
     <string name="cast">Fondo</string>
     <string name="Synopsis">Sinopsis</string>
+    <string name="msg_gnere_default">No tiene</string>
+    <string name="error_fail_conexion">Sin Conexion a Internet</string>
+    <string name="error_fail_conexion_refresh">Sin Conexion a Internet\nRefresque de nuevo</string>
 </resources>

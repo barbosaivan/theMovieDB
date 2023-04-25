@@ -1,9 +1,11 @@
 package com.example.wposs_001_semillero_wmovie.view;
 
+import android.app.Application;
 import android.content.Context;
 import android.content.Intent;
 import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
+import android.net.Network;
+import android.net.NetworkCapabilities;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -11,29 +13,32 @@ import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.wposs_001_semillero_wmovie.R;
 import com.example.wposs_001_semillero_wmovie.interfaces.InterfaceSearchMovieActivity;
-import com.example.wposs_001_semillero_wmovie.models.Movie;
-import com.example.wposs_001_semillero_wmovie.presenter.PresenterSearchMovieActivity;
+import com.example.wposs_001_semillero_wmovie.entities.Movie;
+import com.example.wposs_001_semillero_wmovie.presenter.PresenterSearchMovie;
 import com.example.wposs_001_semillero_wmovie.view.adapters.ListSearchMovieAdapter;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
-public class ViewSearchMovieActivity extends AppCompatActivity implements InterfaceSearchMovieActivity.ViewSearchMovieActivity {
+public class ViewSearchMovie extends AppCompatActivity implements InterfaceSearchMovieActivity.ViewSearchMovieActivity {
     private RecyclerView recyclerView;
     private ListSearchMovieAdapter listNameMovieAdapter;
     private ProgressBar progressBar;
     private boolean load;
     private int loadPage;
-    ArrayList<Movie> movies;
-    InterfaceSearchMovieActivity.presenterSearchMovieActivity presenterSearchMovieActivity;
+    List<Movie> movies;
+    InterfaceSearchMovieActivity.PresenterSearchMovieActivity presenterSearchMovieActivity;
     private EditText nameMovie;
-    Button buttonBackSearchMovie, buttonSearchMovie;
+    Button buttonBackSearchMovie;
+    Button buttonSearchMovie;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,50 +46,37 @@ public class ViewSearchMovieActivity extends AppCompatActivity implements Interf
         setContentView(R.layout.activity_search_movie);
         Objects.requireNonNull(getSupportActionBar()).hide();
 
-        presenterSearchMovieActivity = new PresenterSearchMovieActivity(this);
+        presenterSearchMovieActivity = new PresenterSearchMovie(this);
 
-        nameMovie = (EditText) findViewById(R.id.editTexNameMovie);
-        buttonBackSearchMovie = (Button) findViewById(R.id.buttonBackSearchMovie);
-        buttonSearchMovie = (Button) findViewById(R.id.buttonSearchMovie);
-        recyclerView = (RecyclerView) findViewById(R.id.listRecyclerViewSearchNameMovie);
-        progressBar = (ProgressBar) findViewById(R.id.progressBar);
+        nameMovie = findViewById(R.id.editTexNameMovie);
+        buttonBackSearchMovie = findViewById(R.id.buttonBackSearchMovie);
+        buttonSearchMovie = findViewById(R.id.buttonSearchMovie);
+        recyclerView = findViewById(R.id.listRecyclerViewSearchNameMovie);
+        progressBar = findViewById(R.id.progressBar);
 
         recyclerView.setVisibility(View.GONE);
         progressBar.setVisibility(View.GONE);
 
         movies = new ArrayList<>();
 
-        buttonBackSearchMovie.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
-        buttonSearchMovie.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                progressBar.setVisibility(View.VISIBLE);
-                loadPage = 1;
-                internetConnection();
-            }
+        buttonBackSearchMovie.setOnClickListener(v -> finish());
+        buttonSearchMovie.setOnClickListener(v -> {
+            progressBar.setVisibility(View.VISIBLE);
+            loadPage = 1;
+            internetConnection();
         });
     }
 
     public void init() {
-        listNameMovieAdapter = new ListSearchMovieAdapter(this, new ListSearchMovieAdapter.OnItemClickListener() {
-            @Override
-            public void onItemClick(Movie item) {
-                moveTodescription(item);
-            }
-        });
+        listNameMovieAdapter = new ListSearchMovieAdapter(this, this::moveToDescription);
         recyclerView.setAdapter(listNameMovieAdapter);
         recyclerView.setHasFixedSize(true);
         GridLayoutManager layoutManager = new GridLayoutManager(this, 1);
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
-            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
-                super.onScrolled(recyclerView, dx, dy);
+            public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(Objects.requireNonNull(recyclerView), dx, dy);
 
                 if (dy > 0) {
 
@@ -92,31 +84,30 @@ public class ViewSearchMovieActivity extends AppCompatActivity implements Interf
                     int totalItemCount = layoutManager.getItemCount();
                     int pastVisibleItems = layoutManager.findFirstVisibleItemPosition();
 
-                    if (load) {
-                        if ((visibleItemCount + pastVisibleItems) >= totalItemCount) {
+                    if (load && ((visibleItemCount + pastVisibleItems) >= totalItemCount)) {
                             progressBar.setVisibility(View.VISIBLE);
                             internetConnectionLoadingData();
                             load = false;
                             loadPage += 1;
                             presenterSearchMovieActivity.bringRetrofitResNameMovie(loadPage, nameMovie.getText().toString());
-                        }
+
                     }
                 }
             }
         });
     }
 
-    private void moveTodescription(Movie item) {
+    private void moveToDescription(Movie item) {
         Intent intent = new Intent(this, DescriptionMovie.class);
         intent.putExtra("listMovie", item);
         startActivity(intent);
     }
 
     @Override
-    public void valorList(ArrayList<Movie> movies) {
+    public void valorList(List<Movie> movies) {
         this.movies = movies;
 
-        if (movies.size() > 0) {
+        if (!movies.isEmpty()) {
             progressBar.setVisibility(View.GONE);
             recyclerView.setVisibility(View.VISIBLE);
         }
@@ -130,24 +121,25 @@ public class ViewSearchMovieActivity extends AppCompatActivity implements Interf
     }
 
     public void internetConnection() {
-        ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
-        NetworkInfo networkInfo = connectivityManager.getActiveNetworkInfo();
-
-        if (networkInfo != null && networkInfo.isConnected()) {
+        if (isNetworkAvailable(this.getApplication())) {
             presenterSearchMovieActivity.bringRetrofitResNameMovie(loadPage, nameMovie.getText().toString());
             init();
         } else {
-            Toast.makeText(this, "Sin Conexion a Internet", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, getString(R.string.error_fail_conexion), Toast.LENGTH_LONG).show();
         }
     }
 
     public void internetConnectionLoadingData() {
-        ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
-        NetworkInfo networkInfo = connectivityManager.getActiveNetworkInfo();
-        if (networkInfo != null && networkInfo.isConnected()) {
-        } else {
-            Toast.makeText(this, "Sin Conexion a Internet\nRefresque de nuevo", Toast.LENGTH_LONG).show();
-        }
+        if (!isNetworkAvailable(this.getApplication()))
+            Toast.makeText(this, getString(R.string.error_fail_conexion_refresh), Toast.LENGTH_LONG).show();
+    }
+
+    private boolean isNetworkAvailable(Application application) {
+        ConnectivityManager connectivityManager = (ConnectivityManager) application.getSystemService(Context.CONNECTIVITY_SERVICE);
+        Network nw = connectivityManager.getActiveNetwork();
+        if (nw == null) return false;
+        NetworkCapabilities actNw = connectivityManager.getNetworkCapabilities(nw);
+        return actNw != null && (actNw.hasTransport(NetworkCapabilities.TRANSPORT_WIFI) || actNw.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR) || actNw.hasTransport(NetworkCapabilities.TRANSPORT_ETHERNET) || actNw.hasTransport(NetworkCapabilities.TRANSPORT_BLUETOOTH));
     }
 
 }

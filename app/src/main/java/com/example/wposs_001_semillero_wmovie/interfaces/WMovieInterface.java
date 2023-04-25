@@ -18,14 +18,14 @@ public interface WMovieInterface {
 
     @GET("/3/movie/popular?")
     Call<ResMovie> getPopularMovies(
-            @Query("api_key") String api_key,
+            @Query("api_key") String apiKey,
             @Query("page") int page,
             @Query("language") String language
     );
 
     @GET("/3/genre/movie/list?")
     Call<ResMovie> geGenres(
-            @Query("api_key") String api_key,
+            @Query("api_key") String apiKey,
             @Query("language") String language
     );
 

@@ -6,7 +6,7 @@ import androidx.annotation.NonNull;
 
 import com.example.wposs_001_semillero_wmovie.entities.GenresMovies;
 import com.example.wposs_001_semillero_wmovie.entities.Movie;
-import com.example.wposs_001_semillero_wmovie.interfaces.InterfaceMainActivity;
+import com.example.wposs_001_semillero_wmovie.interfaces.InterfaceSearchMovieActivity;
 import com.example.wposs_001_semillero_wmovie.interfaces.WMovieInterface;
 import com.example.wposs_001_semillero_wmovie.utils.CredentialsApi;
 
@@ -19,26 +19,25 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class ModelMainActivity implements InterfaceMainActivity.ModelActivity {
-    InterfaceMainActivity.PresenterActivity presenterActivity;
+public class ModelSearchMovie implements InterfaceSearchMovieActivity.ModelSearchMovieActivity {
+    InterfaceSearchMovieActivity.PresenterSearchMovieActivity presenterSearchMovieActivity;
 
-    public ModelMainActivity(InterfaceMainActivity.PresenterActivity presenterActivity) {
-        this.presenterActivity = presenterActivity;
+    public ModelSearchMovie(InterfaceSearchMovieActivity.PresenterSearchMovieActivity presenterSearchMovieActivity) {
+        this.presenterSearchMovieActivity = presenterSearchMovieActivity;
     }
 
     @Override
-    public void retrofitResPopular(int nextPage) {
+    public void retrofitResNameMovies(int nextPage, String nameMovie) {
         WMovieInterface wMovieInterface = Service.getWMovie();
-        Call<ResMovie> resWMovieCall = wMovieInterface.getPopularMovies(
-                CredentialsApi.KEY_API, nextPage, "es-MX"
+        Call<SearchResMovie> searchResWMovieCall = wMovieInterface.searchMovie(
+                CredentialsApi.KEY_API, nameMovie, nextPage, "es-MX"
         );
-
-        resWMovieCall.enqueue(new Callback<ResMovie>() {
+        searchResWMovieCall.enqueue(new Callback<SearchResMovie>() {
             @Override
-            public void onResponse(@NonNull Call<ResMovie> call, @NonNull Response<ResMovie> response) {
-                presenterActivity.reloadLoadPage(true);
+            public void onResponse(@NonNull Call<SearchResMovie> call, @NonNull Response<SearchResMovie> response) {
+                presenterSearchMovieActivity.reloadLoadPage(true);
                 if (response.code() == 200) {
-                    ArrayList<Movie> movies = new ArrayList<>(Objects.requireNonNull(response.body()).getMovie());
+                    ArrayList<Movie> movies = new ArrayList<>(Objects.requireNonNull(response.body()).getMovies());
                     retrofitResGenres(movies);
                 } else {
                     try {
@@ -50,8 +49,8 @@ public class ModelMainActivity implements InterfaceMainActivity.ModelActivity {
             }
 
             @Override
-            public void onFailure(@NonNull Call<ResMovie> call, @NonNull Throwable t) {
-                presenterActivity.reloadLoadPage(true);
+            public void onFailure(@NonNull Call<SearchResMovie> call, @NonNull Throwable t) {
+                presenterSearchMovieActivity.reloadLoadPage(false);
                 t.printStackTrace();
             }
         });
@@ -66,10 +65,10 @@ public class ModelMainActivity implements InterfaceMainActivity.ModelActivity {
         resWMovieCall.enqueue(new Callback<ResMovie>() {
             @Override
             public void onResponse(@NonNull Call<ResMovie> call, @NonNull Response<ResMovie> response) {
-                presenterActivity.reloadLoadPage(true);
+                presenterSearchMovieActivity.reloadLoadPage(true);
                 if (response.code() == 200) {
                     ArrayList<GenresMovies> genresMovies = new ArrayList<>(Objects.requireNonNull(response.body()).getGenres());
-                    presenterActivity.sendRetrofitResPopular(orderGenres(movies, genresMovies));
+                    presenterSearchMovieActivity.sendRetrofitResNameMovie(orderGenres(movies, genresMovies));
                 } else {
                     try {
                         Log.v("Tag", "Error" + Objects.requireNonNull(response.errorBody()).string());
