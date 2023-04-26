@@ -2,10 +2,13 @@
     <string name="app_name">Wmovie</string>
     <string name="see_more">leer mas</string>
     <string name="see_less">leer menos</string>
-    <string name="Button_back">Volver</string>
+    <string name="Button_back">Back</string>
     <string name="cast">Fondo</string>
     <string name="Synopsis">Sinopsis</string>
     <string name="msg_gnere_default">No tiene</string>
     <string name="error_fail_conexion">Sin Conexion a Internet</string>
     <string name="error_fail_conexion_refresh">Sin Conexion a Internet\nRefresque de nuevo</string>
+    <string name="description_image_movie">Image Movie</string>
+    <string name="description_background_image">background image</string>
+    <string name="detailed_description">Detailed description of the selected film,Detailed description of the selected film, Detailed description of the selected film,Detailed description of the selected film,Detailed description of the selected film</string>
 </resources>
